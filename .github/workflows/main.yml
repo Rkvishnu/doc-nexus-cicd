@@ -1,0 +1,32 @@
+name: CI/CD Pipeline
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build
+      run: |
+         mkdir -p dist
+        cp index.html dist/
+        cp style.css dist/
+        cp script.js dist/
+
+
+    - name: Run Tests
+      run: |
+        # Validate HTML using HTMLHint
+        npm install -g htmlhint
+        htmlhint --config .htmlhintrc ./index.html
+
+    - name: Publish Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: web-app
+        path: ./dist
