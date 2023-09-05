@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Continous Integration Part
 on:
   push:
     branches:
